@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>CSC Go + WASM</title>
+</head>
+
+<body>
+<script src="wasm_exec.js"></script>
+
+<script>
+    if (!WebAssembly.instantiateStreaming) {
+        // polyfill
+        WebAssembly.instantiateStreaming = async (resp, importObject) => {
+            const source = await (await resp).arrayBuffer();
+            return await WebAssembly.instantiate(source, importObject);
+        };
+    }
+
+    const go = new Go();
+
+    let mod, inst;
+
+    let setResult = (result) => {
+        mod = result.module;
+        inst = result.instance;
+        document.getElementById("runButton").disabled = false;
+    };
+
+    WebAssembly.instantiateStreaming(fetch("prj.wasm"), go.importObject)
+        .then(result => {
+                setResult(result)
+            }
+        ).catch(reason => {
+            console.log("instantiateStreaming: ", reason);
+
+            fetch('prj.wasm').then(response =>
+                response.arrayBuffer()
+            ).then(bytes =>
+                WebAssembly.instantiate(bytes, go.importObject)
+            ).then(obj => {
+                setResult(obj)
+            });
+        }
+    );
+
+    async function run() {
+        await go.run(inst);
+        inst = await WebAssembly.instantiate(mod, go.importObject); // reset instance
+    }
+</script>
+
+<button onClick="run();" id="runButton" disabled>Run</button>
+</body>
+</html>
