@@ -23,7 +23,7 @@ func MakeImage(width, height uint32) Image {
 	return MakeImageWithBackground(width, height, MakeColor(0, 0, 0))
 }
 
-func (image *Image) GetColor(w, h uint32) *Color {
+func (image *Image) GetPixel(w, h uint32) *Color {
 	return &image.Pixels[h*image.Width+w]
 }
 

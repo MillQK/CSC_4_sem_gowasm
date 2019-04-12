@@ -5,6 +5,7 @@ import (
 	"CSC_4_sem_gowasm/raytracer/hitable"
 	"io"
 	"math"
+	"math/rand"
 	"os"
 )
 
@@ -20,30 +21,35 @@ func color(r *rt.Ray, world hitable.Hitable) rt.Vec3 {
 
 func printGradientAndCircle(output io.Writer) error {
 	image := rt.MakeImage(800, 400)
-	lowerLeftCorner := rt.MakeVec3(-2.0, -1.0, -1.0)
-	horizontal := rt.MakeVec3(4.0, 0.0, 0.0)
-	vertical := rt.MakeVec3(0.0, 2.0, 0.0)
-	origin := rt.MakeVec3(0.0, 0.0, 0.0)
+	raysPerPixel := 100
 
 	world := hitable.NewHitableList([]hitable.Hitable{
 		hitable.NewSphere(rt.MakeVec3(0.0, 0.0, -1.0), 0.5),
 		hitable.NewSphere(rt.MakeVec3(0.0, -100.5, -1.0), 100),
 	})
 
+	camera := rt.MakeCamera()
+
 	for j := uint32(0); j < image.Height; j++ {
 		for i := uint32(0); i < image.Width; i++ {
 
-			u := float64(i) / float64(image.Width)
-			v := float64(j) / float64(image.Height)
+			averageColor := rt.NewVec3(0, 0, 0)
 
-			ray := rt.MakeRay(origin, lowerLeftCorner.Add(horizontal.MulScalar(u)).Add(vertical.MulScalar(v)))
-			color := color(&ray, world)
+			for s := 0; s < raysPerPixel; s++ {
+				u := (float64(i) + rand.Float64()) / float64(image.Width)
+				v := (float64(j) + rand.Float64()) / float64(image.Height)
 
-			imageColor := image.GetColor(i, image.Height-j-1)
+				ray := camera.GetRay(u, v)
+				averageColor.AddAssign(color(&ray, world))
+			}
 
-			imageColor.R = uint8(255.99 * color.X)
-			imageColor.G = uint8(255.99 * color.Y)
-			imageColor.B = uint8(255.99 * color.Z)
+			averageColor.DivScalarAssign(float64(raysPerPixel))
+
+			imagePixel := image.GetPixel(i, image.Height-j-1)
+
+			imagePixel.R = uint8(255.99 * averageColor.X)
+			imagePixel.G = uint8(255.99 * averageColor.Y)
+			imagePixel.B = uint8(255.99 * averageColor.Z)
 		}
 	}
 
