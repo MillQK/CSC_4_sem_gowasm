@@ -1,4 +1,4 @@
-package figures
+package hitable
 
 import (
 	rt "CSC_4_sem_gowasm/raytracer"
@@ -14,6 +14,10 @@ func MakeSphere(center rt.Vec3, radius float64) Sphere {
 	return Sphere{center, radius}
 }
 
+func NewSphere(center rt.Vec3, radius float64) *Sphere {
+	return &Sphere{center, radius}
+}
+
 func (sphere *Sphere) Hit(ray rt.Ray, tMin, tMax float64) *rt.HitRecord {
 	oc := ray.Origin.Sub(sphere.Center)
 	a := ray.Direction.Dot(ray.Direction)
@@ -27,15 +31,13 @@ func (sphere *Sphere) Hit(ray rt.Ray, tMin, tMax float64) *rt.HitRecord {
 
 		if tMin <= t && t <= tMax {
 			point := ray.PointAtParameter(t)
-			hitRecord := rt.MakeHitRecord(t, point, point.Sub(sphere.Center).DivScalar(sphere.Radius))
-			return &hitRecord
+			return rt.NewHitRecord(t, point, point.Sub(sphere.Center).DivScalar(sphere.Radius))
 		}
 
 		t = (-b + math.Sqrt(discriminant)) / (2.0 * a)
 		if tMin <= t && t <= tMax {
 			point := ray.PointAtParameter(t)
-			hitRecord := rt.MakeHitRecord(t, point, point.Sub(sphere.Center).DivScalar(sphere.Radius))
-			return &hitRecord
+			return rt.NewHitRecord(t, point, point.Sub(sphere.Center).DivScalar(sphere.Radius))
 		}
 	}
 

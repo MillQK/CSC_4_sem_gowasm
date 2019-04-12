@@ -8,3 +8,7 @@ type HitRecord struct {
 func MakeHitRecord(t float64, point, normal Vec3) HitRecord {
 	return HitRecord{t, point, normal}
 }
+
+func NewHitRecord(t float64, point, normal Vec3) *HitRecord {
+	return &HitRecord{t, point, normal}
+}

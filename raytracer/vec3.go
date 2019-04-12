@@ -10,6 +10,10 @@ func MakeVec3(x, y, z float64) Vec3 {
 	return Vec3{x, y, z}
 }
 
+func NewVec3(x, y, z float64) *Vec3 {
+	return &Vec3{x, y, z}
+}
+
 func (vec Vec3) Squared_length() float64 {
 	x, y, z := vec.X, vec.Y, vec.Z
 	return x*x + y*y + z*z
