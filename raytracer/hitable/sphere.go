@@ -29,13 +29,13 @@ func (sphere *Sphere) Hit(ray rt.Ray, tMin, tMax float64) *rt.HitRecord {
 	if discriminant > 0.0 {
 		t := (-b - math.Sqrt(discriminant)) / (2.0 * a)
 
-		if tMin <= t && t <= tMax {
+		if tMin < t && t < tMax {
 			point := ray.PointAtParameter(t)
 			return rt.NewHitRecord(t, point, point.Sub(sphere.Center).DivScalar(sphere.Radius))
 		}
 
 		t = (-b + math.Sqrt(discriminant)) / (2.0 * a)
-		if tMin <= t && t <= tMax {
+		if tMin < t && t < tMax {
 			point := ray.PointAtParameter(t)
 			return rt.NewHitRecord(t, point, point.Sub(sphere.Center).DivScalar(sphere.Radius))
 		}
