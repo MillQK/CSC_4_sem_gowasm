@@ -44,6 +44,12 @@ func (vec Vec3) UnitVector() Vec3 {
 	return vec.DivScalar(vec.Length())
 }
 
+func (vec *Vec3) ModifyFields(f func(float64) float64) {
+	vec.X = f(vec.X)
+	vec.Y = f(vec.Y)
+	vec.Z = f(vec.Z)
+}
+
 func (vec Vec3) Neg() Vec3 {
 	return Vec3{-vec.X, -vec.Y, -vec.Z}
 }

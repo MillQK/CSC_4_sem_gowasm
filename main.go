@@ -7,11 +7,13 @@ import (
 	"math"
 	"math/rand"
 	"os"
+	"time"
 )
 
 func color(r *rt.Ray, world hitable.Hitable) rt.Vec3 {
-	if hit := world.Hit(*r, 0.0, math.MaxFloat64); hit != nil {
-		return *hit.Normal.AddScalarAssign(1.0).MulScalarAssign(0.5)
+	if hit := world.Hit(*r, 0.001, math.MaxFloat64); hit != nil {
+		target := hit.Point.Add(hit.Normal).Add(rt.PointOnUnitSphereSufrace())
+		return color(rt.NewRay(hit.Point, target.Sub(hit.Point)), world).MulScalar(0.5)
 	} else {
 		unitDirection := r.Direction.UnitVector()
 		t := 0.5 * (unitDirection.Y + 1.0)
@@ -43,13 +45,11 @@ func printGradientAndCircle(output io.Writer) error {
 				averageColor.AddAssign(color(&ray, world))
 			}
 
-			averageColor.DivScalarAssign(float64(raysPerPixel))
+			averageColor.ModifyFields(func(x float64) float64 {
+				return 255.99 * math.Sqrt(x/float64(raysPerPixel))
+			})
 
-			imagePixel := image.GetPixel(i, image.Height-j-1)
-
-			imagePixel.R = uint8(255.99 * averageColor.X)
-			imagePixel.G = uint8(255.99 * averageColor.Y)
-			imagePixel.B = uint8(255.99 * averageColor.Z)
+			image.GetPixel(i, image.Height-j-1).FromVec(*averageColor)
 		}
 	}
 
@@ -58,6 +58,7 @@ func printGradientAndCircle(output io.Writer) error {
 
 func main() {
 	args := os.Args
+	rand.Seed(time.Now().UnixNano())
 
 	switch len(args) {
 	case 1:
