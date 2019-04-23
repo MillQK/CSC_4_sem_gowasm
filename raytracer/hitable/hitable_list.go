@@ -10,15 +10,15 @@ func NewHitableListSize(size uint32) *HitableList {
 	return &HitableList{make([]Hitable, size)}
 }
 
-func NewHitableList(figures []Hitable) *HitableList {
-	return &HitableList{figures}
+func NewHitableList(list []Hitable) *HitableList {
+	return &HitableList{list}
 }
 
-func (figuresList *HitableList) Hit(ray raytracer.Ray, tMin, tMax float64) *raytracer.HitRecord {
+func (list *HitableList) Hit(ray raytracer.Ray, tMin, tMax float64) *raytracer.HitRecord {
 	var hitRecord *raytracer.HitRecord = nil
 	closest := tMax
 
-	for _, figure := range figuresList.List {
+	for _, figure := range list.List {
 		if hit := figure.Hit(ray, tMin, closest); hit != nil {
 			closest = hit.T
 			hitRecord = hit

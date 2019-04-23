@@ -1,7 +1,7 @@
 package raytracer
 
 type Camera struct {
-	origin, lowerLeftCorner, horizontal, vertical Vec3
+	Origin, LowerLeftCorner, Horizontal, Vertical Vec3
 }
 
 func MakeCamera() Camera {
@@ -14,5 +14,5 @@ func MakeCamera() Camera {
 }
 
 func (camera *Camera) GetRay(u, v float64) Ray {
-	return MakeRay(camera.origin, camera.lowerLeftCorner.Sub(camera.origin).Add(camera.horizontal.MulScalar(u)).Add(camera.vertical.MulScalar(v)))
+	return MakeRay(camera.Origin, camera.LowerLeftCorner.Sub(camera.Origin).Add(camera.Horizontal.MulScalar(u)).Add(camera.Vertical.MulScalar(v)))
 }
