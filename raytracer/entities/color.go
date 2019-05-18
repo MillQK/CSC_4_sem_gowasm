@@ -1,4 +1,4 @@
-package raytracer
+package entities
 
 type Color struct {
 	R, G, B uint8

@@ -39,7 +39,7 @@ func (list *HitableList) UnmarshalJSON(b []byte) error {
 		switch hitableType {
 		case SPHERE_TYPE:
 			var sphere Sphere
-			err := json.Unmarshal(*m[hitableType], &sphere)
+			err := json.Unmarshal(*m[SPHERE_TYPE], &sphere)
 			if err != nil {
 				return err
 			}

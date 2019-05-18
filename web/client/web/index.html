@@ -12,6 +12,7 @@
     if (!WebAssembly.instantiateStreaming) {
         // polyfill
         WebAssembly.instantiateStreaming = async (resp, importObject) => {
+            console.log('set pollyfill');
             const source = await (await resp).arrayBuffer();
             return await WebAssembly.instantiate(source, importObject);
         };
@@ -32,7 +33,7 @@
                 setResult(result)
             }
         ).catch(reason => {
-            console.log("instantiateStreaming: ", reason);
+            console.log("instantiateStreaming error: ", reason);
 
             fetch('prj.wasm').then(response =>
                 response.arrayBuffer()
@@ -45,11 +46,15 @@
     );
 
     async function run() {
+        console.log("clicked");
         await go.run(inst);
         inst = await WebAssembly.instantiate(mod, go.importObject); // reset instance
     }
 </script>
 
+<p>Server url: <input type="url" id="server_url" placeholder="Will use default value if empty" size="40"></p>
 <button onClick="run();" id="runButton" disabled>Run</button>
+<p id="info"></p>
+<canvas id="imageCanvas"></canvas>
 </body>
 </html>

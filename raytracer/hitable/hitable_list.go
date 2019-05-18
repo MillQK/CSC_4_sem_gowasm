@@ -1,6 +1,8 @@
 package hitable
 
-import "CSC_4_sem_gowasm/raytracer"
+import (
+	"CSC_4_sem_gowasm/raytracer/entities"
+)
 
 type HitableList struct {
 	List []Hitable
@@ -14,8 +16,8 @@ func NewHitableList(list []Hitable) *HitableList {
 	return &HitableList{list}
 }
 
-func (list *HitableList) Hit(ray raytracer.Ray, tMin, tMax float64) *raytracer.HitRecord {
-	var hitRecord *raytracer.HitRecord = nil
+func (list *HitableList) Hit(ray entities.Ray, tMin, tMax float64) *entities.HitRecord {
+	var hitRecord *entities.HitRecord = nil
 	closest := tMax
 
 	for _, figure := range list.List {

@@ -1,4 +1,4 @@
-package raytracer
+package entities
 
 type Ray struct {
 	Origin, Direction Vec3

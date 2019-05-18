@@ -1,24 +1,24 @@
 package hitable
 
 import (
-	rt "CSC_4_sem_gowasm/raytracer"
+	"CSC_4_sem_gowasm/raytracer/entities"
 	"math"
 )
 
 type Sphere struct {
-	Center rt.Vec3
+	Center entities.Vec3
 	Radius float64
 }
 
-func MakeSphere(center rt.Vec3, radius float64) Sphere {
+func MakeSphere(center entities.Vec3, radius float64) Sphere {
 	return Sphere{center, radius}
 }
 
-func NewSphere(center rt.Vec3, radius float64) *Sphere {
+func NewSphere(center entities.Vec3, radius float64) *Sphere {
 	return &Sphere{center, radius}
 }
 
-func (sphere *Sphere) Hit(ray rt.Ray, tMin, tMax float64) *rt.HitRecord {
+func (sphere *Sphere) Hit(ray entities.Ray, tMin, tMax float64) *entities.HitRecord {
 	oc := ray.Origin.Sub(sphere.Center)
 	a := ray.Direction.Dot(ray.Direction)
 	b := 2.0 * ray.Direction.Dot(oc)
@@ -31,13 +31,13 @@ func (sphere *Sphere) Hit(ray rt.Ray, tMin, tMax float64) *rt.HitRecord {
 
 		if tMin < t && t < tMax {
 			point := ray.PointAtParameter(t)
-			return rt.NewHitRecord(t, point, point.Sub(sphere.Center).DivScalar(sphere.Radius))
+			return entities.NewHitRecord(t, point, point.Sub(sphere.Center).DivScalar(sphere.Radius))
 		}
 
 		t = (-b + math.Sqrt(discriminant)) / (2.0 * a)
 		if tMin < t && t < tMax {
 			point := ray.PointAtParameter(t)
-			return rt.NewHitRecord(t, point, point.Sub(sphere.Center).DivScalar(sphere.Radius))
+			return entities.NewHitRecord(t, point, point.Sub(sphere.Center).DivScalar(sphere.Radius))
 		}
 	}
 

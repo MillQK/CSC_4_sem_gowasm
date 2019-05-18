@@ -1,4 +1,4 @@
-package raytracer
+package entities
 
 import "math"
 
@@ -12,6 +12,10 @@ func MakeVec3(x, y, z float64) Vec3 {
 
 func NewVec3(x, y, z float64) *Vec3 {
 	return &Vec3{x, y, z}
+}
+
+func NewZeroVec3() *Vec3 {
+	return &Vec3{0, 0, 0}
 }
 
 func (vec Vec3) Squared_length() float64 {

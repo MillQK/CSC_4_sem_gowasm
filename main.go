@@ -2,56 +2,30 @@ package main
 
 import (
 	rt "CSC_4_sem_gowasm/raytracer"
-	"CSC_4_sem_gowasm/raytracer/hitable"
+	"CSC_4_sem_gowasm/raytracer/entities"
+	"CSC_4_sem_gowasm/web/shared"
 	"io"
-	"math"
 	"math/rand"
 	"os"
 	"time"
 )
 
-func color(r *rt.Ray, world hitable.Hitable) rt.Vec3 {
-	if hit := world.Hit(*r, 0.001, math.MaxFloat64); hit != nil {
-		target := hit.Point.Add(hit.Normal).Add(rt.PointOnUnitSphereSufrace())
-		return color(rt.NewRay(hit.Point, target.Sub(hit.Point)), world).MulScalar(0.5)
-	} else {
-		unitDirection := r.Direction.UnitVector()
-		t := 0.5 * (unitDirection.Y + 1.0)
-		return *rt.NewVec3(1.0, 1.0, 1.0).MulScalarAssign(1.0 - t).AddAssign(*rt.NewVec3(0.5, 0.7, 1.0).MulScalarAssign(t))
-	}
-}
-
 func printGradientAndCircle(output io.Writer) error {
-	image := rt.MakeImage(800, 400)
-	raysPerPixel := 100
+	renderScene := shared.DefaultScene()
+	image := entities.MakeImage(renderScene.Width, renderScene.Height)
 
-	world := hitable.NewHitableList([]hitable.Hitable{
-		hitable.NewSphere(rt.MakeVec3(0.0, 0.0, -1.0), 0.5),
-		hitable.NewSphere(rt.MakeVec3(0.0, -100.5, -1.0), 100),
-	})
-
-	camera := rt.MakeCamera()
+	start := time.Now()
 
 	for j := uint32(0); j < image.Height; j++ {
 		for i := uint32(0); i < image.Width; i++ {
-
-			averageColor := rt.NewVec3(0, 0, 0)
-
-			for s := 0; s < raysPerPixel; s++ {
-				u := (float64(i) + rand.Float64()) / float64(image.Width)
-				v := (float64(j) + rand.Float64()) / float64(image.Height)
-
-				ray := camera.GetRay(u, v)
-				averageColor.AddAssign(color(&ray, world))
-			}
-
-			averageColor.ModifyFields(func(x float64) float64 {
-				return 255.99 * math.Sqrt(x/float64(raysPerPixel))
-			})
-
-			image.GetPixel(i, image.Height-j-1).FromVec(*averageColor)
+			image.GetPixel(i, image.Height-j-1).FromVec(rt.RenderPixel(renderScene, i, j))
 		}
 	}
+
+	shared.PrintMemUsage()
+
+	elapsed := time.Now().Sub(start)
+	println("Elapsed time: ", elapsed.String())
 
 	return image.WriteAsPpm(output)
 }

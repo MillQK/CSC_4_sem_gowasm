@@ -1,4 +1,4 @@
-package raytracer
+package entities
 
 type Camera struct {
 	Origin, LowerLeftCorner, Horizontal, Vertical Vec3

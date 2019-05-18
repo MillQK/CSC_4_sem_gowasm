@@ -1,7 +1,9 @@
 package hitable
 
-import rt "CSC_4_sem_gowasm/raytracer"
+import (
+	"CSC_4_sem_gowasm/raytracer/entities"
+)
 
 type Hitable interface {
-	Hit(ray rt.Ray, tMin, tMax float64) *rt.HitRecord
+	Hit(ray entities.Ray, tMin, tMax float64) *entities.HitRecord
 }

@@ -1,4 +1,4 @@
-package raytracer
+package entities
 
 type HitRecord struct {
 	T             float64
