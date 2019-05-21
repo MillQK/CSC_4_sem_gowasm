@@ -26,7 +26,7 @@ func (metal *Metal) MarshalJSON() ([]byte, error) {
 	return json.Marshal(m)
 }
 
-func UnmarshalMaterial(b []byte) (Scatter, error) {
+func UnmarshalMaterial(b []byte) (Material, error) {
 	var m map[string]*json.RawMessage
 	err := json.Unmarshal(b, &m)
 	if err != nil {

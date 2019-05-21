@@ -31,13 +31,19 @@ func DefaultScene() *scene.Scene {
 		RaysPerPixel: 100,
 		HittableList: *hittable.NewHittableList([]hittable.Hittable{
 			hittable.NewSphere(entities.MakeVec3(0.0, 0.0, -1.0), 0.5,
-				materials.NewLambertian(entities.MakeVec3(0.8, 0.3, 0.3))),
+				materials.NewLambertian(entities.MakeVec3(0.1, 0.2, 0.5))),
+
 			hittable.NewSphere(entities.MakeVec3(0.0, -100.5, -1.0), 100,
 				materials.NewLambertian(entities.MakeVec3(0.8, 0.8, 0.0))),
+
 			hittable.NewSphere(entities.MakeVec3(1.0, 0.0, -1.0), 0.5,
-				materials.NewMetal(entities.MakeVec3(0.8, 0.6, 0.2), 1.0)),
+				materials.NewMetal(entities.MakeVec3(0.8, 0.6, 0.2), 0.1)),
+
 			hittable.NewSphere(entities.MakeVec3(-1.0, 0.0, -1.0), 0.5,
-				materials.NewMetal(entities.MakeVec3(0.8, 0.8, 0.8), 0.3)),
+				materials.NewDielectric(1.5)),
+
+			hittable.NewSphere(entities.MakeVec3(-1.0, 0.0, -1.0), -0.45,
+				materials.NewDielectric(1.5)),
 		}),
 		Width:  1000,
 		Height: 500,

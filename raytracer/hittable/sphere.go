@@ -9,14 +9,14 @@ import (
 type Sphere struct {
 	Center   entities.Vec3
 	Radius   float64
-	Material materials.Scatter
+	Material materials.Material
 }
 
-func MakeSphere(center entities.Vec3, radius float64, material materials.Scatter) Sphere {
+func MakeSphere(center entities.Vec3, radius float64, material materials.Material) Sphere {
 	return Sphere{center, radius, material}
 }
 
-func NewSphere(center entities.Vec3, radius float64, material materials.Scatter) *Sphere {
+func NewSphere(center entities.Vec3, radius float64, material materials.Material) *Sphere {
 	return &Sphere{center, radius, material}
 }
 

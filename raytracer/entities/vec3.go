@@ -58,6 +58,20 @@ func (vec Vec3) Reflect(other Vec3) Vec3 {
 	return vec.Sub(other.MulScalar(2 * vec.Dot(other)))
 }
 
+func (vec Vec3) Refract(other Vec3, niOverNt float64) *Vec3 {
+	unitVec := vec.UnitVector()
+	dt := unitVec.Dot(other)
+	discriminant := 1.0 - niOverNt*niOverNt*(1-dt*dt)
+	if discriminant > 0.0 {
+		nDiscr := other.MulScalar(math.Sqrt(discriminant))
+		nDt := other.MulScalar(dt)
+
+		return NewZeroVec3().AddAssign(unitVec).SubAssign(nDt).MulScalarAssign(niOverNt).SubAssign(nDiscr)
+	}
+
+	return nil
+}
+
 func (vec Vec3) Neg() Vec3 {
 	return Vec3{-vec.X, -vec.Y, -vec.Z}
 }
@@ -102,6 +116,13 @@ func (vec *Vec3) SubAssign(other Vec3) *Vec3 {
 	vec.X -= other.X
 	vec.Y -= other.Y
 	vec.Z -= other.Z
+	return vec
+}
+
+func (vec *Vec3) SubScalarAssign(scalar float64) *Vec3 {
+	vec.X -= scalar
+	vec.Y -= scalar
+	vec.Z -= scalar
 	return vec
 }
 

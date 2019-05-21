@@ -17,6 +17,6 @@ func NewScatteredRay(ray entities.Ray, attenuation entities.Vec3) *ScatteredRay 
 	return &ScatteredRay{ray, attenuation}
 }
 
-type Scatter interface {
+type Material interface {
 	Scatter(ray *entities.Ray, hit *HitRecord) *ScatteredRay
 }
