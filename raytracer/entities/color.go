@@ -13,3 +13,9 @@ func (color *Color) FromVec(vec3 Vec3) {
 	color.G = uint8(vec3.Y)
 	color.B = uint8(vec3.Z)
 }
+
+func (color *Color) FromColor(other Color) {
+	color.R = other.R
+	color.G = other.G
+	color.B = other.B
+}

@@ -12,13 +12,13 @@ import (
 
 func printGradientAndCircle(output io.Writer) error {
 	renderScene := shared.DefaultScene()
-	image := entities.MakeImage(renderScene.Width, renderScene.Height)
+	image := entities.NewImage(renderScene.Width, renderScene.Height)
 
 	start := time.Now()
 
 	for j := uint32(0); j < image.Height; j++ {
 		for i := uint32(0); i < image.Width; i++ {
-			image.GetPixel(i, image.Height-j-1).FromVec(rt.RenderPixel(renderScene, i, j))
+			image.GetPixel(i, j).FromVec(rt.RenderPixel(renderScene, i, image.Height-j-1))
 		}
 	}
 

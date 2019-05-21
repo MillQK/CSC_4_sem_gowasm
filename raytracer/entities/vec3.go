@@ -54,6 +54,10 @@ func (vec *Vec3) ModifyFields(f func(float64) float64) {
 	vec.Z = f(vec.Z)
 }
 
+func (vec Vec3) Reflect(other Vec3) Vec3 {
+	return vec.Sub(other.MulScalar(2 * vec.Dot(other)))
+}
+
 func (vec Vec3) Neg() Vec3 {
 	return Vec3{-vec.X, -vec.Y, -vec.Z}
 }

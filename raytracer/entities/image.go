@@ -10,17 +10,17 @@ type Image struct {
 	Pixels        []Color
 }
 
-func MakeImageWithBackground(width, height uint32, color Color) Image {
+func NewImageWithBackground(width, height uint32, color Color) *Image {
 	pixels := make([]Color, width*height)
 	for i := uint32(0); i < width*height; i++ {
 		pixels[i] = color
 	}
 
-	return Image{width, height, pixels}
+	return &Image{width, height, pixels}
 }
 
-func MakeImage(width, height uint32) Image {
-	return MakeImageWithBackground(width, height, MakeColor(0, 0, 0))
+func NewImage(width, height uint32) *Image {
+	return NewImageWithBackground(width, height, MakeColor(0, 0, 0))
 }
 
 func (image *Image) GetPixel(w, h uint32) *Color {

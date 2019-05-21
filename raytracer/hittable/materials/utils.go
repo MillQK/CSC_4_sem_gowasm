@@ -1,4 +1,4 @@
-package raytracer
+package materials
 
 import (
 	"CSC_4_sem_gowasm/raytracer/entities"

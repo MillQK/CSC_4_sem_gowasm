@@ -2,16 +2,20 @@ package raytracer
 
 import (
 	"CSC_4_sem_gowasm/raytracer/entities"
-	"CSC_4_sem_gowasm/raytracer/hitable"
+	"CSC_4_sem_gowasm/raytracer/hittable"
 	"CSC_4_sem_gowasm/scene"
 	"math"
 	"math/rand"
 )
 
-func color(r *entities.Ray, world hitable.Hitable) entities.Vec3 {
-	if hit := world.Hit(*r, 0.001, math.MaxFloat64); hit != nil {
-		target := entities.NewZeroVec3().AddAssign(hit.Point).AddAssign(hit.Normal).AddAssign(PointOnUnitSphereSurface()).SubAssign(hit.Point)
-		return color(entities.NewRay(hit.Point, *target), world).MulScalar(0.5)
+func color(r *entities.Ray, world hittable.Hittable, depth uint32) entities.Vec3 {
+	if hit := world.Hit(r, 0.001, math.MaxFloat64); hit != nil {
+
+		if scatter := hit.Material.Scatter(r, hit); depth < 50 && scatter != nil {
+			return scatter.Attenuation.Mul(color(&scatter.Ray, world, depth+1))
+		}
+
+		return *entities.NewZeroVec3()
 	} else {
 		unitDirection := r.Direction.UnitVector()
 		t := 0.5 * (unitDirection.Y + 1.0)
@@ -27,7 +31,7 @@ func RenderPixel(scene *scene.Scene, pixelWidth, pixelHeight uint32) entities.Ve
 		v := (float64(pixelHeight) + rand.Float64()) / float64(scene.Height)
 
 		ray := scene.Camera.GetRay(u, v)
-		averageColor.AddAssign(color(&ray, &scene.HitableList))
+		averageColor.AddAssign(color(&ray, &scene.HittableList, 0))
 	}
 
 	averageColor.ModifyFields(func(x float64) float64 {

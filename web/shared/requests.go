@@ -1,6 +1,7 @@
 package shared
 
 import (
+	"CSC_4_sem_gowasm/raytracer/entities"
 	"CSC_4_sem_gowasm/scene"
 )
 
@@ -13,4 +14,11 @@ type RayTracingJob struct {
 	Scene        scene.Scene
 	WidthPixels  PixelsRange
 	HeightPixels PixelsRange
+}
+
+type RayTracingJobResult struct {
+	SceneId      string
+	WidthPixels  PixelsRange
+	HeightPixels PixelsRange
+	Image        entities.Image
 }
