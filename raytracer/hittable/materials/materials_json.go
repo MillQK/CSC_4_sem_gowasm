@@ -10,6 +10,7 @@ const (
 	MATERIAL_TYPE = "material_type"
 	LAMBERTIAN    = "lambertian"
 	METAL         = "metal"
+	DIELECTRIC    = "dielectric"
 )
 
 func (lambertian *Lambertian) MarshalJSON() ([]byte, error) {
@@ -23,6 +24,13 @@ func (metal *Metal) MarshalJSON() ([]byte, error) {
 	m := make(map[string]interface{})
 	m[MATERIAL_TYPE] = METAL
 	m[METAL] = *metal
+	return json.Marshal(m)
+}
+
+func (dielectric *Dielectric) MarshalJSON() ([]byte, error) {
+	m := make(map[string]interface{})
+	m[MATERIAL_TYPE] = DIELECTRIC
+	m[DIELECTRIC] = *dielectric
 	return json.Marshal(m)
 }
 
@@ -57,6 +65,15 @@ func UnmarshalMaterial(b []byte) (Material, error) {
 		}
 
 		return &metal, nil
+
+	case DIELECTRIC:
+		var dielectric Dielectric
+		err := json.Unmarshal(*m[DIELECTRIC], &dielectric)
+		if err != nil {
+			return nil, err
+		}
+
+		return &dielectric, nil
 
 	default:
 		return nil, errors.New(fmt.Sprintf("Unsupported material type found: %s", materialType))
