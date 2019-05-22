@@ -6,8 +6,8 @@ import (
 )
 
 type Scene struct {
-	Camera        entities.Camera
+	Camera        *entities.Camera
 	RaysPerPixel  uint32
-	HittableList  hittable.HittableList
+	HittableList  *hittable.HittableList
 	Width, Height uint32
 }

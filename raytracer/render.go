@@ -31,7 +31,7 @@ func RenderPixel(scene *scene.Scene, pixelWidth, pixelHeight uint32) entities.Ve
 		v := (float64(pixelHeight) + rand.Float64()) / float64(scene.Height)
 
 		ray := scene.Camera.GetRay(u, v)
-		averageColor.AddAssign(color(&ray, &scene.HittableList, 0))
+		averageColor.AddAssign(color(&ray, scene.HittableList, 0))
 	}
 
 	averageColor.ModifyFields(func(x float64) float64 {
