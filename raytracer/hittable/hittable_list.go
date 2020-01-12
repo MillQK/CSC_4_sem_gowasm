@@ -1,8 +1,8 @@
 package hittable
 
 import (
-	"CSC_4_sem_gowasm/raytracer/entities"
-	"CSC_4_sem_gowasm/raytracer/hittable/materials"
+	"github.com/MillQK/gowasm_raytracer/raytracer/entities"
+	"github.com/MillQK/gowasm_raytracer/raytracer/hittable/materials"
 )
 
 type HittableList struct {

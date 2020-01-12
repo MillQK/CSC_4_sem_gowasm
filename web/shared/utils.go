@@ -1,11 +1,11 @@
 package shared
 
 import (
-	"CSC_4_sem_gowasm/raytracer/entities"
-	"CSC_4_sem_gowasm/raytracer/hittable"
-	"CSC_4_sem_gowasm/raytracer/hittable/materials"
-	"CSC_4_sem_gowasm/scene"
 	"fmt"
+	"github.com/MillQK/gowasm_raytracer/raytracer/entities"
+	"github.com/MillQK/gowasm_raytracer/raytracer/hittable"
+	"github.com/MillQK/gowasm_raytracer/raytracer/hittable/materials"
+	"github.com/MillQK/gowasm_raytracer/scene"
 	"math/rand"
 	"runtime"
 )

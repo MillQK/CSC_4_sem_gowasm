@@ -1,8 +1,8 @@
 package hittable
 
 import (
-	"CSC_4_sem_gowasm/raytracer/hittable/materials"
 	"encoding/json"
+	"github.com/MillQK/gowasm_raytracer/raytracer/hittable/materials"
 )
 
 const SPHERE = "sphere"

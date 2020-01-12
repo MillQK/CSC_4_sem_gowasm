@@ -1,9 +1,9 @@
 package main
 
 import (
-	rt "CSC_4_sem_gowasm/raytracer"
-	"CSC_4_sem_gowasm/raytracer/entities"
-	"CSC_4_sem_gowasm/web/shared"
+	rt "github.com/MillQK/gowasm_raytracer/raytracer"
+	"github.com/MillQK/gowasm_raytracer/raytracer/entities"
+	"github.com/MillQK/gowasm_raytracer/web/shared"
 	"io"
 	"math/rand"
 	"os"

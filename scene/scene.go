@@ -1,8 +1,8 @@
 package scene
 
 import (
-	"CSC_4_sem_gowasm/raytracer/entities"
-	"CSC_4_sem_gowasm/raytracer/hittable"
+	"github.com/MillQK/gowasm_raytracer/raytracer/entities"
+	"github.com/MillQK/gowasm_raytracer/raytracer/hittable"
 )
 
 type Scene struct {

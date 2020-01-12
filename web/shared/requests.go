@@ -1,8 +1,8 @@
 package shared
 
 import (
-	"CSC_4_sem_gowasm/raytracer/entities"
-	"CSC_4_sem_gowasm/scene"
+	"github.com/MillQK/gowasm_raytracer/raytracer/entities"
+	"github.com/MillQK/gowasm_raytracer/scene"
 )
 
 type PixelsRange struct {

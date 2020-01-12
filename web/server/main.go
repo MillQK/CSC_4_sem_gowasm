@@ -1,10 +1,10 @@
 package main
 
 import (
-	"CSC_4_sem_gowasm/raytracer/entities"
-	"CSC_4_sem_gowasm/web/shared"
 	"encoding/json"
 	"fmt"
+	"github.com/MillQK/gowasm_raytracer/raytracer/entities"
+	"github.com/MillQK/gowasm_raytracer/web/shared"
 	"io/ioutil"
 	"log"
 	"net/http"

@@ -1,7 +1,7 @@
 package materials
 
 import (
-	"CSC_4_sem_gowasm/raytracer/entities"
+	"github.com/MillQK/gowasm_raytracer/raytracer/entities"
 )
 
 type HitRecord struct {
