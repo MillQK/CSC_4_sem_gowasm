@@ -1,5 +1,5 @@
-# CSC_4_sem_gowasm
-CSC semester project Go + WASM
+# gowasm_raytracer
+Go + WASM distributed raytracer
 
 ### Layout
 
