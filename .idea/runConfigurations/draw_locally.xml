@@ -1,0 +1,12 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="draw locally" type="GoApplicationRunConfiguration" factoryName="Go Application">
+    <module name="gowasm_raytracer" />
+    <working_directory value="$PROJECT_DIR$" />
+    <parameters value="1.ppm" />
+    <kind value="PACKAGE" />
+    <filePath value="$PROJECT_DIR$/main.go" />
+    <package value="github.com/MillQK/gowasm_raytracer" />
+    <directory value="$PROJECT_DIR$/" />
+    <method v="2" />
+  </configuration>
+</component>

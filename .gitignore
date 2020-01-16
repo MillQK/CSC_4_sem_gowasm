@@ -11,6 +11,26 @@
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
 
-# Idea folder
-.idea
-!.idea/runConfigurations/*
+# Idea files
+**/.idea/artifacts
+**/.idea/compiler.xml
+**/.idea/copyright
+**/.idea/gradle.xml
+**/.idea/gradle_extensions.xml
+**/.idea/libraries
+**/.idea/misc.xml
+**/.idea/modules
+**/.idea/modules.xml
+**/.idea/uiDesigner.xml
+**/.idea/usage.statistics.xml
+**/.idea/vcs.xml
+**/.idea/workspace.xml
+**/.idea/dataSources
+**/.idea/shelf
+**/.idea/httpRequests
+**/.idea/dataSources.local.xml
+**/.idea/saveactions_settings.xml
+**/.idea/git_toolbox_prj.xml
+**/.idea/dictionaries
+**/.idea/.name
+**/.idea/caches
