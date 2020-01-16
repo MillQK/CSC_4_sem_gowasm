@@ -13,3 +13,4 @@
 
 # Idea folder
 .idea
+!.idea/runConfigurations/*
