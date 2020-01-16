@@ -152,6 +152,8 @@ func setupCallbacks() {
 				return
 			}
 
+			request.Header.Add("js.fetch:mode", "cors")
+
 			resp, err := httpClient.Do(request)
 			if err != nil {
 				println(err.Error())
@@ -238,6 +240,8 @@ func getTask() error {
 		println(err.Error())
 		return err
 	}
+
+	request.Header.Add("js.fetch:mode", "cors")
 
 	resp, err := httpClient.Do(request)
 	if err != nil {

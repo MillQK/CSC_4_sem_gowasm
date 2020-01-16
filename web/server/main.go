@@ -47,9 +47,9 @@ func getTask(w http.ResponseWriter, r *http.Request) {
 
 	header := w.Header()
 	header.Set("Content-Type", "application/json")
-	header.Set("Access-Control-Allow-Origin", "*")
-	header.Set("Access-Control-Allow-Methods", "GET")
-	header.Set("Access-Control-Allow-Headers", "Access-Control-Allow-Origin, Content-Type")
+	//header.Set("Access-Control-Allow-Origin", "*")
+	//header.Set("Access-Control-Allow-Methods", "GET")
+	//header.Set("Access-Control-Allow-Headers", "Access-Control-Allow-Origin, Content-Type")
 
 	if r.Method != http.MethodGet {
 		w.WriteHeader(http.StatusOK)

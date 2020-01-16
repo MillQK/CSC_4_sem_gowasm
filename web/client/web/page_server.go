@@ -11,7 +11,7 @@ import (
 
 var (
 	listen = flag.String("listen", ":18080", "listen address")
-	dir    = flag.String("dir", "./web", "directory to serve")
+	dir    = flag.String("dir", "./static", "directory to serve")
 )
 
 func setup() error {
